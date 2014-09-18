@@ -1,8 +1,6 @@
 package com.plugin.gcm;
 
 import android.app.Activity;
-import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -27,6 +25,8 @@ public class PushHandlerActivity extends Activity
 		boolean isPushPluginActive = PushPlugin.isActive();
 		processPushBundle(isPushPluginActive);
 
+		GCMIntentService.cancelNotification(this);
+
 		finish();
 
 		if (!isPushPluginActive) {
@@ -40,6 +40,8 @@ public class PushHandlerActivity extends Activity
 	 */
 	private void processPushBundle(boolean isPushPluginActive)
 	{
+		GCMIntentService.numMessages = 0;
+	    GCMIntentService.messages = "";
 		Bundle extras = getIntent().getExtras();
 
 		if (extras != null)	{
@@ -61,12 +63,5 @@ public class PushHandlerActivity extends Activity
 		Intent launchIntent = pm.getLaunchIntentForPackage(getApplicationContext().getPackageName());    		
 		startActivity(launchIntent);
 	}
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-    final NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-    notificationManager.cancelAll();
-  }
 
 }
