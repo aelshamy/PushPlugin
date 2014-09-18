@@ -96,12 +96,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		
 		final Notification.Builder mBuilder = new Notification.Builder(context);
-//				.setDefaults(Notification.DEFAULT_ALL)
-//				.setSmallIcon(context.getApplicationInfo().icon)
-//				.setWhen(System.currentTimeMillis())
-//				.setContentTitle(extras.getString("title"))
-//				.setTicker(extras.getString("title"))
-//				.setContentIntent(contentIntent);
+
 		++numMessages;
 		String title=" new notifications";
 		Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -120,17 +115,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 						.setNumber(numMessages)
 						.setContentIntent(contentIntent);
 		mBuilder.setSound(alarmSound);
-//		String message = extras.getString("message");
-//		if (message != null) {
-//			mBuilder.setContentText(message);
-//		} else {
-//			mBuilder.setContentText("<missing message content>");
-//		}
-//
-//		String msgcnt = extras.getString("msgcnt");
-//		if (msgcnt != null) {
-//			mBuilder.setNumber(Integer.parseInt(msgcnt));
-//		}
+
 		
 		mNotificationManager.notify((String) appName, NOTIFICATION_ID, mBuilder.build());
 	}
